@@ -1,16 +1,19 @@
 import AirlineTicketPage from '../pageobjects/searchflight/airline-ticket.page.js';
 import SearchResultPage from '../pageobjects/searchflight/search-result.page.js';
 
+import data from '../data/bestprice.env.prod.js'
 describe('Best Price Search', () => {
     it('should open the airline ticket page, perform a flight search, and sort by cheapest price', async () => {
+       console.log(data.url);
         // Open the airline ticket page
-        await AirlineTicketPage.open("https://www.bestprice.vn/ve-may-bay");
+        await AirlineTicketPage.open(data.url);
 
         // Perform a flight search
         const departureDate = AirlineTicketPage.getDate();
         const returnDate = AirlineTicketPage.getDate(2);
         
-        await AirlineTicketPage.SearchFlight("Hà Nội (HAN)", "Hồ Chí Minh (SGN)", departureDate, returnDate, 1, 0, 0);
+        await AirlineTicketPage.SearchFlight(data.flight.departurePoint,data.flight.destination, 
+            departureDate, returnDate, data.flight.adults, data.flight.children, data.flight.infants);
 
         // Select the sorting option "Giá rẻ nhất" (Cheapest Price)
         await SearchResultPage.selectSortFlightByOption("Giá rẻ nhất");
