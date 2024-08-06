@@ -7,6 +7,7 @@ describe('Best Price Search', () => {
        console.log(data.url);
         // Open the airline ticket page
         await AirlineTicketPage.open(data.url);
+        await browser.maximizeWindow();
 
         // Perform a flight search
         const departureDate = AirlineTicketPage.getDate();
